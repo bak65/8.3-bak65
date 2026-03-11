@@ -2,150 +2,699 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gửi lời nhắn</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Câu Chuyện Vẻ Đẹp Riêng Biệt</title>
+  <!-- Font Mali nét viết tay tròn trịa -->
+  <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Mali', cursive;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
 
-        .card {
-            background: white;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            box-sizing: border-box;
-        }
+    /* Khung chứa động cho tất cả các slide */
+    #story-container {
+      width: 95%;
+      max-width: 1200px;
+      height: 90vh;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      position: relative;
+      z-index: 10;
+    }
 
-        h1,
-        p {
-            text-align: center;
-        }
+    /* Đảm bảo chữ luôn đọc được trên mọi nền ảnh */
+    .title,
+    .text {
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.8);
+    }
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
+    /* --- Các Class Bố Cục Riêng Biệt Từng Trang --- */
 
-        label {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
+    /* 1. Layout Mặc định (Trang 1, 5) */
+    .layout-default {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
 
-        input,
-        textarea {
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-            box-sizing: border-box;
-            width: 100%;
-        }
+    .layout-default .image-col {
+      flex: 4;
+      display: flex;
+      justify-content: flex-end;
+    }
 
-        button {
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    .layout-default .text-col {
+      flex: 6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+    .layout-default .title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
 
-        .status {
-            margin-top: 15px;
-            text-align: center;
-            font-size: 14px;
-        }
+    .layout-default .text {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #4b5563;
+    }
 
-        .success {
-            color: green;
-        }
+    .layout-default .image-col img.standard-img {
+      max-height: 40vh;
+      max-width: 80%;
+    }
 
-        .error {
-            color: red;
-        }
-    </style>
+    /* Thu nhỏ ảnh */
+
+    /* 2. Layout Dọc (Trang 2) */
+    .layout-vertical {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .layout-vertical .title {
+      font-size: 2.8rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      z-index: 2;
+    }
+
+    .layout-vertical .text {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #4b5563;
+      margin-top: 20px;
+      z-index: 2;
+    }
+
+    .layout-vertical img.standard-img {
+      height: 35vh;
+      z-index: 1;
+    }
+
+    /* Thu nhỏ ảnh */
+
+    /* 3. Layout Trung Tâm (Trang 3, Trang 6) */
+    .layout-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-bottom: 15vh;
+      /* Đẩy chữ lùi lên trên một chút để né các bạn nữ ở viền dưới */
+    }
+
+    .layout-center .title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      line-height: 1.5;
+      z-index: 2;
+      max-width: 65vw;
+      /* Giới hạn chiều rộng để né các bạn ở 2 bên */
+    }
+
+    .layout-center .text {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #4b5563;
+      margin-top: 20px;
+      z-index: 2;
+      max-width: 65vw;
+    }
+
+    .layout-center img.standard-img {
+      height: 25vh;
+      margin-top: 30px;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    /* 4. Layout Tách Đôi (Trang 4) */
+    .layout-split {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .layout-split .title {
+      flex: 1;
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .layout-split img.standard-img {
+      flex: 1.5;
+      height: 40vh;
+    }
+
+    /* Thu nhỏ ảnh */
+    .layout-split .text {
+      flex: 1;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #4b5563;
+      text-align: left;
+    }
+
+    /* 5. Layout Tam Giác (Trang 7) */
+    .layout-triangle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .triangle-wrapper {
+      position: relative;
+      width: 90vmin;
+      max-width: 550px;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .triangle-wrapper img.standard-img {
+      width: 38%;
+      height: auto;
+      z-index: 1;
+      display: block;
+      position: relative;
+    }
+
+    .triangle-text {
+      position: absolute;
+      font-weight: bold;
+      z-index: 2;
+      text-align: center;
+      font-size: clamp(1rem, 3.5vmin, 2rem);
+      line-height: 1.4;
+      width: 31%;
+    }
+
+    .triangle-text.t-top {
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+    }
+
+    .triangle-text.t-left {
+      bottom: 10%;
+      left: 0;
+    }
+
+    .triangle-text.t-right {
+      bottom: 10%;
+      right: 0;
+    }
+
+    /* --- Các Lớp Ảnh --- */
+
+    /* Ảnh thông thường */
+    img.standard-img {
+      object-fit: contain;
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    img.standard-img.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Ảnh Toàn Trang Web (Trang 3 & 6) */
+    img.fullscreen-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      /* Phủ kín toàn màn hình */
+      z-index: 0;
+      /* Nằm dưới cùng */
+      opacity: 0;
+      transition: opacity 1.5s ease-out;
+    }
+
+    img.fullscreen-bg.show {
+      opacity: 0.85;
+      /* Giảm độ sáng một chút để nổi bật chữ */
+    }
+
+    /* Hiệu ứng con trỏ nhấp nháy */
+    .typing-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background-color: currentColor;
+      margin-left: 5px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* Trang trí Màu Hoa (Trang 6) */
+    .floral-text {
+      background: linear-gradient(45deg, #ff007f, #ff4d6d, #ff9966);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 10px rgba(255, 77, 109, 0.2);
+      font-size: 3rem !important;
+      font-weight: 800;
+    }
+
+    /* Hệ thống Cánh hoa & Lá rơi */
+    #petal-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 5;
+      overflow: hidden;
+    }
+
+    .falling-item {
+      position: absolute;
+      top: -50px;
+      animation: fall linear forwards;
+    }
+
+    .rose-petal {
+      background: linear-gradient(135deg, #ff1150, #ff758c);
+      border-radius: 2px 20px 2px 20px;
+      box-shadow: 0 0 10px rgba(255, 17, 80, 0.4);
+    }
+
+    .rose-leaf {
+      background: linear-gradient(135deg, #4ade80, #16a34a);
+      border-radius: 20px 2px 20px 2px;
+      box-shadow: 0 0 10px rgba(22, 163, 74, 0.3);
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.9;
+      }
+
+      100% {
+        transform: translateY(110vh) rotate(720deg) scale(0.8);
+        opacity: 0;
+      }
+    }
+
+    /* Nút Chạm để tiếp tục - Fix cố định góc màn hình */
+    #continue-prompt {
+      position: fixed;
+      bottom: 30px;
+      right: 40px;
+      font-size: 1.5rem;
+      color: #9ca3af;
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+      animation: pulse 1.5s infinite;
+      z-index: 1000;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      50% {
+        transform: translateX(5px);
+        opacity: 0.5;
+      }
+    }
+
+    /* Tối ưu cho Điện thoại */
+    @media (max-width: 768px) {
+
+      .layout-default,
+      .layout-split {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .layout-split img.standard-img {
+        height: 25vh;
+        order: 2;
+        margin: 20px 0;
+      }
+
+      .layout-split .title {
+        order: 1;
+        text-align: center;
+        font-size: 2rem;
+      }
+
+      .layout-split .text {
+        order: 3;
+        text-align: center;
+        font-size: 2rem;
+      }
+
+      .layout-vertical img.standard-img {
+        height: 25vh;
+      }
+
+      .layout-center .title {
+        font-size: 2.2rem;
+        max-width: 85vw;
+      }
+
+      .layout-center .text {
+        font-size: 1.5rem;
+        max-width: 85vw;
+        margin-top: 10px;
+      }
+
+      .layout-default .image-col img.standard-img {
+        max-height: 25vh;
+      }
+
+      #continue-prompt {
+        bottom: 20px;
+        right: 20px;
+        font-size: 1.2rem;
+      }
+
+      .floral-text {
+        font-size: 2rem !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="card">
-        <h1>Gửi lời nhắn</h1>
-        <p>Điền email và nội dung, dữ liệu sẽ được lưu vào Google Sheet.</p>
 
-        <form id="messageForm">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required />
+  <div id="story-container"></div>
+  <div id="continue-prompt">Chạm màn hình để tiếp tục ➔</div>
 
-            <label for="content">Nội dung</label>
-            <textarea id="content" name="content" placeholder="Viết điều bạn muốn gửi" required></textarea>
+  <script>
+    // Dữ liệu và cấu hình Bố cục (Layout) cho từng trang
+    const slidesData = [
+      {
+        layout: 'default',
+        title: "Khi sinh ra",
+        text: "Bạn đã mang cho mình vẻ đẹp đặc biệt chỉ mình bạn có",
+        titleColor: "#9333ea", // Tím
+        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/1%201.png"
+      },
+      {
+        layout: 'vertical',
+        title: "Mỗi giây bạn lớn lên và mỗi trải nghiệm bạn gặp phải",
+        text: "Tạo nên những dấu ấn đặc biệt cho chính bạn",
+        titleColor: "#f59e0b", // Cam
+        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/2%201.png"
+      },
+      {
+        layout: 'center',
+        title: "Bạn không cần phải cố gắng thay đổi bản thân theo những \"chuẩn mực\" nhất định",
+        titleColor: "#10b981", // Xanh lá
+        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/Pink%20and%20Purple%20Elegant%20International%20Women's%20Day%20Presentation.png",
+        fullScreenImage: true // Cờ cho ảnh full toàn trang
+      },
+      {
+        layout: 'split',
+        title: "Bạn là chính mình và bạn có sắc đẹp của chính bạn,",
+        text: "đó là sự khác biệt của chính bạn có",
+        titleColor: "#ec4899", // Hồng
+        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/3%201.png"
+      },
+      {
+        layout: 'default',
+        title: "Mọi chuẩn mực chỉ là nhất thời,",
+        text: "còn chính bạn được chọn \"là chính bạn\"",
+        titleColor: "#3b82f6", // Xanh dương
+        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/4%201.png"
+      },
+      {
+        layout: 'center', // Đổi về layout center để chữ nằm chính giữa màn hình (đè lên ảnh full)
+        title: "Chúc các bạn nữ lớp PTKD 65",
+        text: "luôn yêu vẻ đẹp riêng biệt bản thân",
+        titleColor: "#e11d48", // Đỏ hồng
+        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/Pink%20and%20Purple%20Elegant%20International%20Women's%20Day%20Presentation.png",
+        fullScreenImage: true, // Cờ cho ảnh full toàn trang
+        textFloral: true,
+        petals: true
+      },
+      {
+        layout: 'triangle',
+        image: "",
+        multiLines: [
+          { text: "Luôn hồn nhiên tinh nghịch", color: "#ec4899", class: "t-top" },
+          { text: "Luôn bay bổng tâm hồn", color: "#3b82f6", class: "t-left" },
+          { text: "Luôn hạnh phúc với chính mình", color: "#8b5cf6", class: "t-right" }
+        ]
+      }
+    ];
 
-            <button type="submit">Gửi</button>
-        </form>
+    const container = document.getElementById('story-container');
+    const promptEl = document.getElementById('continue-prompt');
 
-        <div id="status" class="status"></div>
-    </div>
+    let currentSlide = 0;
+    let currentTypingSpeed = 50;
+    let isWaitingForClick = false;
+    let isTransitioning = false;
+    let typingQueue = [];
+    let petalInterval;
 
-    <script>
-        const form = document.getElementById('messageForm');
-        const statusEl = document.getElementById('status');
+    // --- HỆ THỐNG HOA RƠI ---
+    function startPetals() {
+      if (document.getElementById('petal-container')) return;
+      const petalBox = document.createElement('div');
+      petalBox.id = 'petal-container';
+      document.body.appendChild(petalBox);
 
-        // DÁN URL WEB APP GOOGLE APPS SCRIPT CỦA BẠN VÀO ĐÂY
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxLLNjVS4AWO4oDvwt3vd5TGx3vvU8Vmn0WWy8I-reie81rXNFHSSkFBHfN4iljGA/exec';
+      function spawn() {
+        const item = document.createElement('div');
+        const isLeaf = Math.random() > 0.7;
+        item.className = `falling-item ${isLeaf ? 'rose-leaf' : 'rose-petal'}`;
+        item.style.left = Math.random() * 100 + 'vw';
+        const size = 15 + Math.random() * 20;
+        item.style.width = size + 'px';
+        item.style.height = size + 'px';
+        item.style.animationDuration = 4 + Math.random() * 5 + 's';
+        item.style.animationDelay = Math.random() * 1 + 's';
+        petalBox.appendChild(item);
+        setTimeout(() => item.remove(), 10000);
+      }
+      for (let i = 0; i < 15; i++) spawn();
+      petalInterval = setInterval(spawn, 300);
+    }
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+    function stopPetals() {
+      clearInterval(petalInterval);
+      const petalBox = document.getElementById('petal-container');
+      if (petalBox) petalBox.remove();
+    }
 
-            const email = document.getElementById('email').value.trim();
-            const content = document.getElementById('content').value.trim();
+    // --- HỆ THỐNG GÕ CHỮ ---
+    function typeWriter(text, element, callback) {
+      element.innerHTML = '';
+      let i = 0;
+      const cursor = document.createElement('span');
+      cursor.className = 'typing-cursor';
+      element.appendChild(cursor);
 
-            if (!email || !content) {
-                statusEl.textContent = 'Vui lòng nhập đầy đủ thông tin.';
-                statusEl.className = 'status error';
-                return;
-            }
+      function typing() {
+        if (i < text.length) {
+          if (text.charAt(i) === '\n') {
+            cursor.insertAdjacentHTML('beforebegin', '<br>');
+          } else {
+            cursor.insertAdjacentText('beforebegin', text.charAt(i));
+          }
+          i++;
+          setTimeout(typing, currentTypingSpeed);
+        } else {
+          cursor.remove();
+          if (callback) callback();
+        }
+      }
+      typing();
+    }
 
-            statusEl.textContent = 'Đang gửi...';
-            statusEl.className = 'status';
+    function processQueue() {
+      if (typingQueue.length === 0) {
+        isWaitingForClick = true;
+        promptEl.style.opacity = 1;
+        return;
+      }
+      const task = typingQueue.shift();
+      typeWriter(task.text, task.element, () => {
+        setTimeout(processQueue, currentTypingSpeed === 5 ? 0 : 400);
+      });
+    }
 
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({ email, content }),
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8'
-                    }
-                });
+    // --- HỆ THỐNG DỰNG GIAO DIỆN ĐỘNG ---
+    function buildSlideDOM(data) {
+      container.className = `layout-${data.layout}`;
+      container.innerHTML = '';
+      typingQueue = [];
 
-                const result = await response.json();
+      // Phân loại thẻ HTML của ảnh dựa trên cờ fullScreenImage
+      const imgClass = data.fullScreenImage ? "fullscreen-bg" : "standard-img";
+      const imgHTML = data.image ? `<img id="dyn-image" class="${imgClass}" src="${data.image}" alt="">` : '';
 
-                if (result.result === 'success') {
-                    statusEl.textContent = 'Gửi thành công!';
-                    statusEl.className = 'status success';
-                    form.reset();
-                } else {
-                    throw new Error(result.message || 'Có lỗi xảy ra');
-                }
-            } catch (error) {
-                statusEl.textContent = 'Gửi thất bại: ' + error.message;
-                statusEl.className = 'status error';
-            }
-        });
-    </script>
+      if (data.layout === 'vertical') {
+        container.innerHTML = `
+        <div class="title" id="dyn-title" style="color: ${data.titleColor}"></div>
+        ${imgHTML}
+        <div class="text" id="dyn-text"></div>
+      `;
+        typingQueue.push({ text: data.title, element: document.getElementById('dyn-title') });
+        typingQueue.push({ text: data.text, element: document.getElementById('dyn-text') });
+
+      } else if (data.layout === 'center') {
+        container.innerHTML = `
+        ${imgHTML}
+        <div class="title" id="dyn-title" style="color: ${data.titleColor}"></div>
+        <div class="text ${data.textFloral ? 'floral-text' : ''}" id="dyn-text"></div>
+      `;
+        typingQueue.push({ text: data.title, element: document.getElementById('dyn-title') });
+        if (data.text) {
+          typingQueue.push({ text: data.text, element: document.getElementById('dyn-text') });
+        }
+
+      } else if (data.layout === 'split') {
+        container.innerHTML = `
+        <div class="title" id="dyn-title" style="color: ${data.titleColor}"></div>
+        ${imgHTML}
+        <div class="text" id="dyn-text"></div>
+      `;
+        typingQueue.push({ text: data.title, element: document.getElementById('dyn-title') });
+        typingQueue.push({ text: data.text, element: document.getElementById('dyn-text') });
+
+      } else if (data.layout === 'triangle') {
+        container.innerHTML = `
+        <div class="triangle-wrapper">
+          ${imgHTML}
+          <div class="triangle-text t-top" id="dyn-t1" style="color: ${data.multiLines[0].color}"></div>
+          <div class="triangle-text t-left" id="dyn-t2" style="color: ${data.multiLines[1].color}"></div>
+          <div class="triangle-text t-right" id="dyn-t3" style="color: ${data.multiLines[2].color}"></div>
+        </div>
+      `;
+        typingQueue.push({ text: data.multiLines[0].text, element: document.getElementById('dyn-t1') });
+        typingQueue.push({ text: data.multiLines[1].text, element: document.getElementById('dyn-t2') });
+        typingQueue.push({ text: data.multiLines[2].text, element: document.getElementById('dyn-t3') });
+
+      } else {
+        // Default
+        container.innerHTML = `
+        <div class="image-col">${imgHTML}</div>
+        <div class="text-col">
+          <div class="title" id="dyn-title" style="color: ${data.titleColor}"></div>
+          <div class="text ${data.textFloral ? 'floral-text' : ''}" id="dyn-text"></div>
+        </div>
+      `;
+        typingQueue.push({ text: data.title, element: document.getElementById('dyn-title') });
+        typingQueue.push({ text: data.text, element: document.getElementById('dyn-text') });
+      }
+
+      // Hiệu ứng Fade-in cho ảnh
+      const imgEl = document.getElementById('dyn-image');
+      if (imgEl) {
+        setTimeout(() => imgEl.classList.add('show'), 100);
+      }
+    }
+
+    // --- TRÌNH ĐIỀU KHIỂN CHÍNH ---
+    function playSlide(index) {
+      if (index >= slidesData.length) {
+        // Chuyển sang trang loinhan.html sau khi hết slide cuối
+        window.location.href = "loinhan.html";
+        return;
+      }
+
+      const data = slidesData[index];
+      currentTypingSpeed = 50;
+      isWaitingForClick = false;
+      promptEl.style.opacity = 0;
+
+      if (data.petals) startPetals();
+      else stopPetals();
+
+      buildSlideDOM(data);
+      container.style.opacity = 1;
+
+      setTimeout(() => {
+        processQueue();
+      }, 400);
+    }
+
+    // Bắt sự kiện Click / Chạm
+    document.addEventListener('click', () => {
+      if (isTransitioning) return;
+
+      if (isWaitingForClick) {
+        isWaitingForClick = false;
+        isTransitioning = true;
+        promptEl.style.opacity = 0;
+        container.style.opacity = 0;
+
+        setTimeout(() => {
+          currentSlide++;
+          playSlide(currentSlide);
+          isTransitioning = false;
+        }, 500);
+      } else {
+        currentTypingSpeed = 5;
+      }
+    });
+
+    // Khởi động
+    window.onload = () => {
+      setTimeout(() => {
+        playSlide(currentSlide);
+      }, 300);
+    };
+
+  </script>
+
 </body>
 
 </html>
