@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc mừng ngày Quốc tế Phụ nữ 8/3</title>
+    <!-- Thư viện Tailwind CSS để style giao diện -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font chữ mềm mại phù hợp cho ngày 8/3 -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            min-height: 100vh;
+            color: #4a4a4a;
+        }
+
+        .title-font {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(236, 72, 153, 0.15);
+        }
+
+        /* Ẩn thanh cuộn nhưng vẫn cho phép cuộn */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="antialiased overflow-x-hidden">
+
+    <!-- ============================================== -->
+    <!-- TRANG 1: DANH SÁCH 22 ẢNH (6 Cột x 4 Hàng)     -->
+    <!-- ============================================== -->
+    <div id="page1" class="container mx-auto px-4 py-10 min-h-screen flex flex-col items-center">
+        <div class="text-center mb-10">
+            <h1 class="title-font text-5xl md:text-7xl text-pink-600 font-bold mb-3 drop-shadow-sm">Happy Women's Day
+            </h1>
+            <p class="text-pink-800 text-lg">Chọn một bức ảnh yêu thích nhất của bạn để tiếp tục nhé 🌸</p>
+        </div>
+
+        <!-- Lưới ảnh: 4 cột trên màn hình lớn -->
+        <div id="gallery"
+            class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full max-w-7xl">
+            <!-- Ảnh sẽ được tạo tự động bằng JavaScript ở cuối file -->
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TRANG 2: CHI TIẾT ẢNH & FORM ĐIỀN THÔNG TIN    -->
+    <!-- ============================================== -->
+    <div id="page2" class="hidden container mx-auto px-4 py-8 min-h-screen flex items-center justify-center relative">
+        <button onclick="showPage('page1')" title="Đổi ảnh khác"
+            class="absolute top-4 left-4 lg:top-8 lg:left-8 text-pink-600 hover:text-pink-800 transition flex items-center justify-center bg-white/60 hover:bg-white/90 w-10 h-10 lg:w-12 lg:h-12 rounded-full shadow-lg backdrop-blur-md z-10">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+                </path>
+            </svg>
+        </button>
+
+        <div class="glass-panel rounded-3xl w-full max-w-6xl flex flex-col lg:flex-row overflow-hidden"
+            style="height: 85vh;">
+
+            <!-- Nửa bên trái -->
+            <div class="w-full lg:w-1/2 p-6 flex flex-col border-b lg:border-b-0 lg:border-r border-pink-200">
+                <!-- Element 1: Góc trái trên - Ảnh đã chọn -->
+                <div
+                    class="w-full aspect-[1652/1028] flex-none mb-4 rounded-2xl overflow-hidden bg-white/50 flex items-center justify-center shadow-inner relative group">
+                    <img id="selected-image" src="" alt="Ảnh đã chọn"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+
+                <!-- Element 2: Góc trái dưới - Phần Note chúc -->
+                <div
+                    class="flex-1 min-h-0 bg-pink-50/80 p-6 rounded-2xl shadow-inner overflow-y-auto no-scrollbar relative">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
+                        <svg class="w-12 h-12 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                    </div>
+                    <h3 class="title-font text-3xl text-pink-600 mb-3">Lời chúc 8/3</h3>
+                    <p class="text-pink-900 leading-relaxed text-sm md:text-base">
+                        Nhân ngày Quốc tế Phụ nữ 8/3, chúc bạn luôn xinh đẹp, rạng rỡ như những đóa hoa. Mong rằng mọi
+                        điều tốt đẹp, may mắn và hạnh phúc nhất sẽ đến với bạn trong cuộc sống. Hãy luôn tự tin, yêu
+                        thương bản thân và tỏa sáng theo cách riêng của mình nhé!
+                        <br><br>
+                        <i>(Bạn có thể dễ dàng sửa đoạn text này trong mã nguồn HTML)</i>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Nửa bên phải: Element 3 - Form nhập liệu -->
+            <div class="w-full lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center relative bg-white/30">
+                <div class="mt-2 lg:mt-0">
+                    <h2 class="title-font text-4xl text-pink-600 mb-2">Gửi gắm yêu thương</h2>
+                    <p class="text-gray-500 mb-8">Hãy viết lại những cảm xúc và lời hứa với chính mình.</p>
+
+                    <form id="wishes-form" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-pink-700 mb-2">Email của bạn</label>
+                            <input type="email" name="email" required
+                                pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+                                title="Vui lòng nhập đúng định dạng email (VD: ten@gmail.com)"
+                                class="w-full px-5 py-4 rounded-xl border border-pink-200 bg-white/80 focus:bg-white focus:ring-4 focus:ring-pink-100 focus:border-pink-400 outline-none transition-all shadow-sm"
+                                placeholder="nguyenthia@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-pink-700 mb-2">Điều gửi gắm cho chính bản
+                                thân</label>
+                            <textarea name="message" required rows="5"
+                                class="w-full px-5 py-4 rounded-xl border border-pink-200 bg-white/80 focus:bg-white focus:ring-4 focus:ring-pink-100 focus:border-pink-400 outline-none transition-all shadow-sm resize-none"
+                                placeholder="Hãy viết những lời yêu thương dành cho chính mình ở tương lai..."></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn"
+                            class="w-full bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg hover:shadow-pink-500/30 transition-all transform flex justify-center items-center">
+                            <span>Gửi yêu thương</span>
+                            <!-- SVG Spinner (ẩn mặc định) -->
+                            <svg id="loading-spinner" class="animate-spin ml-3 h-5 w-5 text-white hidden"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TRANG 3: TRANG CẢM ƠN SAU KHI GỬI              -->
+    <!-- ============================================== -->
+    <div id="page3" class="hidden container mx-auto px-4 min-h-screen flex items-center justify-center text-center">
+        <div class="glass-panel p-10 md:p-16 rounded-3xl max-w-2xl w-full">
+            <div
+                class="w-24 h-24 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h1 class="title-font text-5xl text-pink-600 mb-4">Cảm ơn bạn!</h1>
+            <p class="text-xl text-pink-800 mb-8 leading-relaxed">
+                Những điều gửi gắm của bạn đã được ghi nhận.<br>
+                Một lần nữa chúc bạn có một ngày 8/3 thật ấm áp, ý nghĩa và ngập tràn tình yêu thương! 💖
+            </p>
+            <button onclick="showPage('page1')"
+                class="px-8 py-3 border-2 border-pink-400 text-pink-500 hover:bg-pink-400 hover:text-white rounded-full font-bold transition-all">
+                Trở về Trang chủ
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- JAVASCRIPT XỬ LÝ LOGIC CHUYỂN TRANG VÀ RENDER  -->
+    <!-- ============================================== -->
+    <script>
+        // 1. Tạo 22 ảnh cho Trang 1
+        const gallery = document.getElementById('gallery');
+
+        // Vòng lặp từ 1 đến 22 để tạo thẻ div chứa ảnh
+        for (let i = 1; i <= 22; i++) {
+            const imgPath = `girl_image/${i}.png`; // Đường dẫn ảnh theo yêu cầu: girl_image/1.png -> 22.png
+
+            const div = document.createElement('div');
+            // Đặt tỉ lệ 1652/1028 (~1.6) như yêu cầu bằng class aspect-ratio của Tailwind
+            div.className = 'relative aspect-[1652/1028] bg-pink-100 rounded-xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-4 border-transparent hover:border-pink-300 group';
+
+            /* Lưu ý: Để tránh trường hợp lỗi giao diện khi không tìm thấy folder "girl_image" trên máy thực tế, 
+               tôi đã thêm onerror tự động load một ảnh placeholder hoa lá chủ đề 8/3. 
+               Khi bạn đưa code về máy tính có chứa folder, ảnh của bạn sẽ hiện bình thường. 
+            */
+            div.innerHTML = `
+                <img src="${imgPath}" alt="Girl ${i}" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1520775985859-5778dc652431?auto=format&fit=crop&q=80&w=600'; this.classList.add('opacity-80')" 
+                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                     onclick="selectImage('${imgPath}')">
+                <div class="absolute inset-0 bg-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            `;
+            gallery.appendChild(div);
+        }
+
+        // 2. Hàm chuyển đổi hiển thị giữa các trang
+        function showPage(pageId) {
+            // Ẩn tất cả
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('page2').classList.add('hidden');
+            document.getElementById('page3').classList.add('hidden');
+
+            // Hiện trang được gọi
+            document.getElementById(pageId).classList.remove('hidden');
+
+            // Cuộn lên đầu trang (dành cho mobile)
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 3. Hàm chọn ảnh ở Trang 1 và chuyển sang Trang 2
+        function selectImage(src) {
+            const selectedImgEl = document.getElementById('selected-image');
+            selectedImgEl.src = src;
+
+            // Xử lý lỗi load ảnh giống như trên trang 1
+            selectedImgEl.onerror = function () {
+                this.src = 'https://images.unsplash.com/photo-1520775985859-5778dc652431?auto=format&fit=crop&q=80&w=1200';
+            };
+
+            showPage('page2');
+        }
+
+        // 4. Xử lý sự kiện bấm "Gửi yêu thương" ở Trang 2
+        document.getElementById('wishes-form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Ngăn chặn hành vi load lại trang mặc định của Form
+
+            const form = e.target;
+            const submitBtn = document.getElementById('submit-btn');
+            const spinner = document.getElementById('loading-spinner');
+            const btnText = submitBtn.querySelector('span');
+
+            // URL Web App của Google Apps Script
+            // LƯU Ý: Đây phải là URL lấy từ "Deploy as Web App" (có đuôi /exec), không phải URL /edit của editor
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxLLNjVS4AWO4oDvwt3vd5TGx3vvU8Vmn0WWy8I-reie81rXNFHSSkFBHfN4iljGA/exec';
+
+            // Hiển thị trạng thái loading
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+            spinner.classList.remove('hidden');
+            btnText.textContent = 'Đang gửi...';
+
+            const formData = new FormData(form);
+            // Tạo object JSON để gửi, do Apps Script đang dùng JSON.parse(e.postData.contents)
+            const dataObj = {
+                email: formData.get('email'),
+                content: formData.get('message'), // Map field name 'message' trên form thành 'content' trên Apps Script
+                image: document.getElementById('selected-image').src
+            };
+
+            fetch(scriptURL, {
+                method: 'POST',
+                // Gửi dưới dạng chữ thuần (plain text) chứa JSON để qua cửa CORS preflight của Google
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8',
+                },
+                body: JSON.stringify(dataObj)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        showPage('page3');
+                        form.reset(); // Reset form sau khi gửi thành công
+                    } else {
+                        alert('Có lỗi xảy ra khi gửi dữ liệu. Vui lòng thử lại!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('Có lỗi mạng xảy ra. Vui lòng thử lại!');
+                })
+                .finally(() => {
+                    // Khôi phục trạng thái nút bấm
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                    spinner.classList.add('hidden');
+                    btnText.textContent = 'Gửi yêu thương';
+                });
+        });
+    </script>
+</body>
+
+</html>

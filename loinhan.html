@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lời Nhắn Gửi Phái Đẹp BA65</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Mali & Quicksand -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #fff0f5;
+            background-image: radial-gradient(#ffd1dc 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        h1,
+        .font-mali {
+            font-family: 'Mali', cursive;
+        }
+
+        /* Masonry Layout cho các thẻ lời chúc */
+        .masonry {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .masonry {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .masonry {
+                column-count: 3;
+            }
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hiệu ứng thẻ nổi */
+        .wish-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .wish-card:hover {
+            transform: translateY(-5px) rotate(-1deg);
+            box-shadow: 0 10px 25px rgba(244, 63, 94, 0.2);
+        }
+
+        /* Hiệu ứng nổi bật cho tên */
+        .sender-name {
+            background: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hiệu ứng trái tim phát sáng */
+        .glowing-heart {
+            color: #f43f5e;
+            /* Màu rose-500 */
+            fill: #f43f5e;
+            /* Đổ màu đặc bên trong */
+            animation: heartGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartGlow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 5px rgba(244, 63, 94, 0.4));
+                transform: scale(1);
+            }
+
+            50% {
+                filter: drop-shadow(0 0 15px rgba(244, 63, 94, 0.9)) drop-shadow(0 0 25px rgba(244, 63, 94, 0.6));
+                transform: scale(1.15);
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen py-12 px-4 md:px-8">
+
+    <div class="max-w-6xl mx-auto relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-16" style="animation: fadeInUp 0.8s ease-out forwards;">
+            <!-- Vòng tròn trắng với hình trái tim phát sáng bên trong -->
+            <div
+                class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-lg mb-4 border border-pink-50">
+                <i data-lucide="heart" class="w-8 h-8 glowing-heart"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-rose-600 mb-4 drop-shadow-sm">
+                Góc Nhỏ Yêu Thương
+            </h1>
+            <p class="text-gray-600 font-medium text-lg max-w-2xl mx-auto">
+                Những lời chúc vụng về nhưng đầy chân thành từ các bạn nam lớp PTKD 65 gửi đến một nửa thế giới xinh đẹp
+                của lớp mình.
+            </p>
+        </div>
+
+        <!-- Vùng chứa các lời chúc (Masonry Grid) -->
+        <div id="wishes-container" class="masonry">
+            <!-- Dữ liệu sẽ được render bằng Javascript -->
+        </div>
+
+        <!-- Nút chuyển sang trang tiếp theo -->
+        <div class="mt-16 text-center pb-12" style="animation: fadeInUp 1.5s ease-out forwards; opacity: 0;">
+            <p class="text-gray-500 mb-6 font-medium">Bạn đã đọc hết lời chúc rồi, giờ thì làm gì tiếp theo nhỉ?</p>
+            <a href="content.html"
+                class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-rose-400 to-pink-500 hover:from-rose-500 hover:to-pink-600 text-white rounded-full font-bold text-lg transition-transform hover:scale-105 shadow-xl shadow-rose-200">
+                Mở Quà Bí Mật Tiếp Theo <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Script xử lý Logic & Render Dữ liệu -->
+    <script>
+        // Dữ liệu lời chúc từ hình ảnh (0 = Ẩn danh)
+        const wishesData = [
+            { name: "Qcuong27", text: "8/3 chúc các bạn nữ luôn tươi tắn, xinh đẹp, gpa auto 4.0, ai có người yêu thì hạnh phúc bên người thương, ai không có thì thôi he he he ✌️" },
+            { name: "SOS", text: "Chúc bé iu 8/3 vui vẻ" },
+            { name: "Nguyễn Thiện Toàn", text: "Chúc các bạn nữ 8386, Toàn mãi yêu các bạn nữ" },
+            { name: "Dạ em là Sang ạ", text: "Chúc cậu luôn vui vẻ, hạnh phúc và luôn tỏa sáng rực rỡ. Mong rằng những lựa chọn của cậu sẽ luôn đưa cậu đến một hành trình viên mãn" },
+            { name: "0", text: "Nhân ngày 8/3, chúc các bạn nữ BA sẽ luôn luôn xinh đẹp, vui vẻ, và đạt được nhiều thành công trong cuộc sống. Always A+ nhen!" },
+            { name: "0", text: "Chúc các cậu sẽ luôn xinh đẹp, vui vẻ, đạt được mục tiêu của bản thân đề ra nhé. và quan trọng nhất là luôn hạnh phúc với những quyết định của mình nhé" },
+            { name: "Nguyễn Tuấn Sỹ", text: "8/3 vui vẻ nhé" },
+            { name: "Đức Thắng", text: "Chúc các bạn nữ 8/3 vui vẻ" },
+            { name: "1 bn Nam cao trên m75 giấu tên", text: "Nhân ngày 8/3, gửi lời chúc đến các bạn nữ của lớp mình — những người xinh đẹp hơn cả lý do Trump đưa ra mỗi lần tăng thuế, bền bỉ hơn cả xung đột Trung Đông, và unpredictable hơn cả thị trường chứng khoán. Sức hút của các bạn thì như giá xăng — lên tới đỉnh thôi là chưa đủ mà còn phải lên nữa và lên mãi. Chúc các bạn luôn tỏa sáng như giá vàng — chỉ có tăng chứ không giảm, được cả thế giới quan tâm và nuông chiều. Happy Women's Day!" },
+            { name: "Bao Công", text: "Mồng 8/3 ai làm phụ nữ buồn trảm hết cho ta" },
+            { name: "Trịnh Gia Khánh", text: "Chúc các bạn nữ mạnh khỏe, vạn sự như ý và thành công trên chặng đường sắp tới nhé" },
+            { name: "Hson", text: "Chúc bạn hay ăn chóng lớn học giỏi cute" },
+            { name: "0", text: "Chúc bạn 8/3 thật nhiều hoa, nhiều quà, nhiều lời khen... và đặc biệt là nhiều người bao ăn" },
+            { name: "Minh Cường", text: "Nhân ngày 8/3, chúc tất cả chị em 65BA luôn xinh đẹp, rạng rỡ và ai cũng là bông hoa đẹp nhất" },
+            { name: "Việt Hưng", text: "thôi thì chúc bạn thành công" }
+        ];
+
+        const container = document.getElementById('wishes-container');
+
+        // Mảng màu sắc trang trí ngẫu nhiên cho góc thẻ
+        const decoColors = ['bg-pink-100', 'bg-rose-100', 'bg-fuchsia-100', 'bg-purple-100', 'bg-indigo-100', 'bg-sky-100'];
+
+        wishesData.forEach((wish, index) => {
+            // Xử lý ẩn danh
+            let displayName = wish.name;
+            let avatarChar = '?';
+
+            if (wish.name === "0") {
+                displayName = "Nam sinh giấu tên 🤫";
+                avatarChar = '👻';
+            } else {
+                avatarChar = wish.name.charAt(0).toUpperCase();
+            }
+
+            // Lấy màu ngẫu nhiên cho góc thẻ
+            const colorClass = decoColors[index % decoColors.length];
+
+            // Tính toán độ trễ animation để các thẻ hiện ra tuần tự
+            const animDelay = index * 0.15;
+
+            const cardHTML = `
+                <div class="masonry-item" style="animation-delay: ${animDelay}s">
+                    <div class="wish-card bg-white p-6 rounded-3xl border border-pink-100 shadow-sm relative overflow-hidden h-full flex flex-col">
+                        <!-- Góc trang trí -->
+                        <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full ${colorClass} opacity-50 blur-xl"></div>
+                        <div class="absolute -bottom-4 -left-4 w-16 h-16 rounded-full ${colorClass} opacity-50 blur-xl"></div>
+                        
+                        <div class="relative z-10 flex-grow">
+                            <i data-lucide="quote" class="w-8 h-8 text-gray-200 mb-3 rotate-180"></i>
+                            <p class="text-gray-700 leading-relaxed font-medium mb-6">
+                                ${wish.text}
+                            </p>
+                        </div>
+                        
+                        <div class="relative z-10 flex items-center gap-3 pt-4 border-t border-gray-50 mt-auto">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-rose-100 to-pink-200 flex items-center justify-center text-rose-600 font-bold text-lg shadow-inner">
+                                ${avatarChar}
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 font-medium uppercase tracking-wider mb-0.5">From</p>
+                                <p class="font-mali font-bold text-gray-800 sender-name text-lg">
+                                    ${displayName}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+        // Khởi tạo Icon Lucide sau khi render DOM
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
