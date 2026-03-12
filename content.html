@@ -414,6 +414,17 @@
                     btnText.textContent = 'Gửi yêu thương';
                 });
         });
+
+        // Ẩn overlay khi user bấm Back (bfcache restore)
+        window.addEventListener('pageshow', function (e) {
+            const overlay = document.getElementById('gift-loading-overlay');
+            if (overlay) {
+                overlay.classList.add('hidden', 'opacity-0');
+                overlay.classList.remove('opacity-100');
+                const box = document.getElementById('gift-loading-box');
+                if (box) { box.classList.add('scale-95'); box.classList.remove('scale-100'); }
+            }
+        });
     </script>
 </body>
 
