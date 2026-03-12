@@ -65,7 +65,7 @@
     <!-- ============================================== -->
     <!-- TRANG 2: CHI TIẾT ẢNH & FORM ĐIỀN THÔNG TIN    -->
     <!-- ============================================== -->
-    <div id="page2" class="hidden container mx-auto px-4 py-8 min-h-screen flex items-center justify-center relative">
+    <div id="page2" class="hidden container mx-auto px-4 py-8 min-h-screen flex flex-col items-center justify-start lg:justify-center relative">
         <button onclick="showPage('page1')" title="Đổi ảnh khác"
             class="absolute top-4 left-4 lg:top-8 lg:left-8 text-pink-600 hover:text-pink-800 transition flex items-center justify-center bg-white/60 hover:bg-white/90 w-10 h-10 lg:w-12 lg:h-12 rounded-full shadow-lg backdrop-blur-md z-10">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,8 +74,7 @@
             </svg>
         </button>
 
-        <div class="glass-panel rounded-3xl w-full max-w-6xl flex flex-col lg:flex-row overflow-hidden"
-            style="height: 85vh;">
+        <div class="glass-panel rounded-3xl w-full max-w-6xl flex flex-col lg:flex-row overflow-hidden lg:h-[85vh]">
 
             <!-- Cột trái: Ảnh + Note lời chúc -->
             <div class="w-full lg:w-2/5 p-5 flex flex-col border-b lg:border-b-0 lg:border-r border-pink-200">
@@ -111,7 +110,7 @@
             </div>
 
             <!-- Cột phải: Form nhập liệu -->
-            <div class="w-full lg:w-3/5 p-8 lg:p-12 flex flex-col justify-center relative bg-white/30">
+            <div class="w-full lg:w-3/5 p-8 lg:p-12 flex flex-col justify-center relative bg-white/30 overflow-y-auto">
                 <div class="mt-2 lg:mt-0">
                     <h2 class="title-font text-4xl text-pink-600 mb-2">Gửi gắm tương lai</h2>
                     <p class="text-gray-500 mb-8">Một cơ hội để nhìn lại hiện tại và gửi chút thương cho ngày mai</p>
