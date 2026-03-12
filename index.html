@@ -1,59 +1,72 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Câu Chuyện Vẻ Đẹp Riêng Biệt</title>
-  <!-- Font Mali nét viết tay tròn trịa -->
-  <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
-    body,
-    html {
+    :root {
+      --shadow-soft: 0 0 15px rgba(255, 255, 255, 0.92), 0 0 30px rgba(255, 255, 255, 0.82);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
       height: 100%;
       margin: 0;
+      overflow: hidden;
       font-family: 'Mali', cursive;
-      background-color: #ffffff;
+      background: #ffffff;
+    }
+
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
       position: relative;
     }
 
-    /* Khung chứa động cho tất cả các slide */
     #story-container {
-      width: 95%;
-      max-width: 1200px;
+      width: min(95vw, 1200px);
       height: 90vh;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
       position: relative;
       z-index: 10;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
     }
 
-    /* Đảm bảo chữ luôn đọc được trên mọi nền ảnh */
     .title,
-    .text {
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.8);
+    .text,
+    .triangle-text,
+    .flower-text-prompt {
+      text-shadow: var(--shadow-soft);
+      line-height: 1.25;
+      word-break: keep-all;
+      overflow-wrap: normal;
+      white-space: pre-line;
+      hyphens: none;
+      text-wrap: balance;
+      max-width: 100%;
     }
 
-    /* --- Các Class Bố Cục Riêng Biệt Từng Trang --- */
-
-    /* 1. Layout Mặc định (Trang 1, 5) */
     .layout-default {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 40px;
+      gap: clamp(20px, 3vw, 40px);
     }
 
     .layout-default .image-col {
       flex: 4;
       display: flex;
       justify-content: flex-end;
+      min-width: 0;
     }
 
     .layout-default .text-col {
@@ -62,49 +75,50 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      min-width: 0;
     }
 
     .layout-default .title {
-      font-size: 3.5rem;
-      font-weight: bold;
-      margin-bottom: 30px;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 24px;
+      max-width: 92%;
     }
 
     .layout-default .text {
-      font-size: 2rem;
+      font-size: clamp(1.25rem, 2.3vw, 2rem);
       font-weight: 600;
       color: #4b5563;
+      max-width: 92%;
     }
 
     .layout-default .image-col img.standard-img {
-      max-height: 40vh;
-      max-width: 80%;
+      max-height: 42vh;
+      max-width: 82%;
     }
 
-    /* Thu nhỏ ảnh */
-
-    /* 2. Layout Dọc (Trang 2) */
     .layout-vertical {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding-inline: 12px;
     }
 
     .layout-vertical .title {
-      font-size: 2.8rem;
-      font-weight: bold;
-      margin-bottom: 20px;
-      z-index: 2;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 18px;
+      width: min(980px, 92%);
     }
 
     .layout-vertical .text {
-      font-size: 2.5rem;
+      font-size: clamp(1.35rem, 2.8vw, 2.35rem);
       font-weight: 600;
       color: #4b5563;
-      margin-top: 20px;
-      z-index: 2;
+      margin-top: 18px;
+      width: min(900px, 88%);
     }
 
     .layout-vertical img.standard-img {
@@ -112,87 +126,83 @@
       z-index: 1;
     }
 
-    /* Thu nhỏ ảnh */
-
-    /* 3. Layout Trung Tâm (Trang 3, Trang 6) */
     .layout-center {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding-bottom: 15vh;
-      /* Đẩy chữ lùi lên trên một chút để né các bạn nữ ở viền dưới */
+      padding: 0 16px 15vh;
     }
 
     .layout-center .title {
-      font-size: 3.5rem;
-      font-weight: bold;
-      line-height: 1.5;
+      font-size: clamp(1.7rem, 3vw, 2.35rem);
+      font-weight: 700;
       z-index: 2;
-      max-width: 65vw;
-      /* Giới hạn chiều rộng để né các bạn ở 2 bên */
+      width: min(980px, 92%);
     }
 
     .layout-center .text {
-      font-size: 2.5rem;
+      font-size: clamp(1.15rem, 2.2vw, 1.8rem);
       font-weight: 600;
       color: #4b5563;
-      margin-top: 20px;
+      margin-top: 16px;
       z-index: 2;
-      max-width: 65vw;
+      width: min(900px, 88%);
     }
 
     .layout-center img.standard-img {
       height: 25vh;
-      margin-top: 30px;
+      margin-top: 26px;
       opacity: 0.8;
       z-index: 1;
     }
 
-    /* 4. Layout Tách Đôi (Trang 4) */
     .layout-split {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: clamp(16px, 2vw, 24px);
+      padding-inline: 10px;
+    }
+
+    .layout-split > * {
+      min-width: 0;
     }
 
     .layout-split .title {
       flex: 1;
-      font-size: 2.5rem;
-      font-weight: bold;
+      font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+      font-weight: 700;
       text-align: right;
     }
 
     .layout-split img.standard-img {
       flex: 1.5;
-      height: 40vh;
+      height: 45vh;
     }
 
-    /* Thu nhỏ ảnh */
     .layout-split .text {
       flex: 1;
-      font-size: 2.5rem;
-      font-weight: bold;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-weight: 700;
       color: #4b5563;
       text-align: left;
     }
 
-    /* 5. Layout Tam Giác (Trang 7) */
     .layout-triangle {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
       height: 100%;
+      padding-inline: 14px;
     }
 
     .triangle-wrapper {
       position: relative;
-      width: 90vmin;
-      max-width: 550px;
+      width: min(86vmin, 560px);
       aspect-ratio: 1 / 1;
       display: flex;
       justify-content: center;
@@ -200,7 +210,7 @@
     }
 
     .triangle-wrapper img.standard-img {
-      width: 38%;
+      width: 45%;
       height: auto;
       z-index: 1;
       display: block;
@@ -209,34 +219,83 @@
 
     .triangle-text {
       position: absolute;
-      font-weight: bold;
       z-index: 2;
       text-align: center;
-      font-size: clamp(1rem, 3.5vmin, 2rem);
-      line-height: 1.4;
-      width: 31%;
+      font-weight: 700;
+      font-size: clamp(1rem, 2.6vmin, 1.7rem);
+      line-height: 1.3;
+      width: 32%;
+      min-width: 150px;
+      max-width: 220px;
     }
 
     .triangle-text.t-top {
-      top: 5%;
+      top: -2%;
       left: 50%;
       transform: translateX(-50%);
-      width: 70%;
+      width: 78%;
+      min-width: 0;
+      max-width: none;
     }
 
     .triangle-text.t-left {
-      bottom: 10%;
-      left: 0;
+      bottom: 4%;
+      left: -14%;
     }
 
     .triangle-text.t-right {
-      bottom: 10%;
-      right: 0;
+      bottom: 4%;
+      right: -14%;
     }
 
-    /* --- Các Lớp Ảnh --- */
+    .cherry-blossom-container {
+      position: absolute;
+      width: 30vmin;
+      height: 30vmin;
+      max-width: 180px;
+      max-height: 180px;
+      z-index: 15;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s ease-out, transform 2s ease-in-out;
+      cursor: pointer;
+    }
 
-    /* Ảnh thông thường */
+    .rotating-flower {
+      width: 100%;
+      height: 100%;
+      animation: spinFlower 12s linear infinite;
+      filter: drop-shadow(0px 5px 15px rgba(255, 75, 145, 0.4));
+    }
+
+    @keyframes spinFlower {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .flower-text-prompt {
+      position: absolute;
+      top: 105%;
+      width: 300px;
+      text-align: center;
+      font-size: clamp(1.15rem, 3vw, 1.7rem);
+      color: #ff4b91;
+      font-weight: 700;
+      margin-top: 15px;
+    }
+
+    .zoom-out-effect {
+      transform: scale(6);
+      opacity: 0;
+      transition: transform 2s cubic-bezier(0.5, 0, 0.2, 1), opacity 1.5s ease-in 0.5s;
+    }
+
     img.standard-img {
       object-fit: contain;
       opacity: 0;
@@ -249,7 +308,6 @@
       transform: translateY(0) scale(1);
     }
 
-    /* Ảnh Toàn Trang Web (Trang 3 & 6) */
     img.fullscreen-bg {
       position: fixed;
       top: 0;
@@ -257,19 +315,15 @@
       width: 100vw;
       height: 100vh;
       object-fit: cover;
-      /* Phủ kín toàn màn hình */
       z-index: 0;
-      /* Nằm dưới cùng */
       opacity: 0;
       transition: opacity 1.5s ease-out;
     }
 
     img.fullscreen-bg.show {
       opacity: 0.85;
-      /* Giảm độ sáng một chút để nổi bật chữ */
     }
 
-    /* Hiệu ứng con trỏ nhấp nháy */
     .typing-cursor {
       display: inline-block;
       width: 3px;
@@ -286,17 +340,22 @@
       }
     }
 
-    /* Trang trí Màu Hoa (Trang 6) */
+    .pink-gradient-title {
+      background: linear-gradient(45deg, #ff4b91, #ff7eb3, #ff007f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.9));
+    }
+
     .floral-text {
       background: linear-gradient(45deg, #ff007f, #ff4d6d, #ff9966);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 2px 2px 10px rgba(255, 77, 109, 0.2);
-      font-size: 3rem !important;
+      filter: drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.9));
+      font-size: clamp(1.2rem, 2.4vw, 1.8rem) !important;
       font-weight: 800;
     }
 
-    /* Hệ thống Cánh hoa & Lá rơi */
     #petal-container {
       position: fixed;
       top: 0;
@@ -331,47 +390,46 @@
         transform: translateY(0) rotate(0deg) scale(1);
         opacity: 0;
       }
-
       10% {
         opacity: 0.9;
       }
-
       100% {
         transform: translateY(110vh) rotate(720deg) scale(0.8);
         opacity: 0;
       }
     }
 
-    /* Nút Chạm để tiếp tục - Fix cố định góc màn hình */
     #continue-prompt {
       position: fixed;
       bottom: 30px;
       right: 40px;
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       color: #9ca3af;
       opacity: 0;
       transition: opacity 0.5s;
       pointer-events: none;
       animation: pulse 1.5s infinite;
       z-index: 1000;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
     }
 
     @keyframes pulse {
-
       0%,
       100% {
-        transform: translateX(0);
+        transform: scale(1);
         opacity: 1;
       }
-
       50% {
-        transform: translateX(5px);
-        opacity: 0.5;
+        transform: scale(1.05);
+        opacity: 0.6;
       }
     }
 
-    /* Tối ưu cho Điện thoại */
     @media (max-width: 768px) {
+      #story-container {
+        width: 96vw;
+        height: 92vh;
+      }
 
       .layout-default,
       .layout-split {
@@ -379,119 +437,177 @@
         text-align: center;
       }
 
+      .layout-default .title,
+      .layout-default .text,
+      .layout-vertical .title,
+      .layout-vertical .text,
+      .layout-center .title,
+      .layout-center .text {
+        width: 95%;
+        max-width: 95%;
+      }
+
       .layout-split img.standard-img {
         height: 25vh;
         order: 2;
-        margin: 20px 0;
+        margin: 18px 0;
       }
 
       .layout-split .title {
         order: 1;
         text-align: center;
-        font-size: 2rem;
+        font-size: clamp(1.6rem, 7vw, 2.1rem);
       }
 
       .layout-split .text {
         order: 3;
         text-align: center;
-        font-size: 2rem;
+        font-size: clamp(1.3rem, 6vw, 1.9rem);
       }
 
       .layout-vertical img.standard-img {
         height: 25vh;
       }
 
-      .layout-center .title {
-        font-size: 2.2rem;
-        max-width: 85vw;
-      }
-
-      .layout-center .text {
-        font-size: 1.5rem;
-        max-width: 85vw;
-        margin-top: 10px;
-      }
-
       .layout-default .image-col img.standard-img {
         max-height: 25vh;
+      }
+
+      .layout-center {
+        padding-bottom: 10vh;
+      }
+
+      .triangle-wrapper {
+        width: min(92vw, 430px);
+      }
+
+      .triangle-text {
+        width: 34%;
+        min-width: 110px;
+        font-size: clamp(0.95rem, 3.6vw, 1.2rem);
+      }
+
+      .triangle-text.t-left {
+        left: -4%;
+        bottom: 3%;
+      }
+
+      .triangle-text.t-right {
+        right: -4%;
+        bottom: 3%;
+      }
+
+      .triangle-text.t-top {
+        top: 0;
+        width: 84%;
+      }
+
+      .flower-text-prompt {
+        width: 220px;
+      }
+
+      .floral-text {
+        font-size: 1.35rem !important;
       }
 
       #continue-prompt {
         bottom: 20px;
         right: 20px;
-        font-size: 1.2rem;
-      }
-
-      .floral-text {
-        font-size: 2rem !important;
+        font-size: 1.15rem;
       }
     }
   </style>
 </head>
-
 <body>
-
   <div id="story-container"></div>
   <div id="continue-prompt">Chạm màn hình để tiếp tục ➔</div>
 
   <script>
-    // Dữ liệu và cấu hình Bố cục (Layout) cho từng trang
     const slidesData = [
       {
         layout: 'default',
-        title: "Khi sinh ra",
-        text: "Bạn đã mang cho mình vẻ đẹp đặc biệt chỉ mình bạn có",
-        titleColor: "#9333ea", // Tím
-        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/1%201.png"
+        title: 'Khi sinh ra',
+        text: 'Bạn đã mang cho mình vẻ đẹp đặc biệt chỉ mình bạn có',
+        titleColor: '#9333ea',
+        image: 'https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/1%201.png'
       },
       {
         layout: 'vertical',
-        title: "Mỗi giây bạn lớn lên và mỗi trải nghiệm bạn gặp phải",
-        text: "Tạo nên những dấu ấn đặc biệt cho chính bạn",
-        titleColor: "#f59e0b", // Cam
-        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/2%201.png"
-      },
-      {
-        layout: 'center',
-        title: "Bạn không cần phải cố gắng thay đổi bản thân theo những \"chuẩn mực\" nhất định",
-        titleColor: "#10b981", // Xanh lá
-        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/Pink%20and%20Purple%20Elegant%20International%20Women's%20Day%20Presentation.png",
-        fullScreenImage: true // Cờ cho ảnh full toàn trang
+        title: 'Mỗi giây bạn lớn lên và mỗi trải nghiệm\nbạn gặp phải',
+        text: 'Tạo nên những dấu ấn đặc biệt\ncho chính bạn',
+        titleColor: '#f59e0b',
+        image: 'https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/2%201.png'
       },
       {
         layout: 'split',
-        title: "Bạn là chính mình và bạn có sắc đẹp của chính bạn,",
-        text: "đó là sự khác biệt của chính bạn có",
-        titleColor: "#ec4899", // Hồng
-        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/3%201.png"
+        title: 'Bạn không cần phải cố gắng\nthay đổi bản thân',
+        text: 'theo những "chuẩn mực"\nnhất định',
+        titleClass: 'pink-gradient-title',
+        image: 'https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/3%201.png'
+      },
+      {
+        layout: 'center',
+        title: 'Bạn là chính mình và bạn có sắc đẹp\ncủa chính bạn,',
+        text: 'đó là sự khác biệt mà chính bạn có',
+        titleColor: '#ec4899',
+        image: 'https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/Pink%20and%20Purple%20Elegant%20International%20Women%27s%20Day%20Presentation.png',
+        fullScreenImage: true
       },
       {
         layout: 'default',
-        title: "Mọi chuẩn mực chỉ là nhất thời,",
-        text: "còn chính bạn được chọn \"là chính bạn\"",
-        titleColor: "#3b82f6", // Xanh dương
-        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/4%201.png"
+        title: 'Mọi chuẩn mực chỉ là nhất thời,',
+        text: 'còn chính bạn được chọn "là chính bạn"',
+        titleColor: '#3b82f6',
+        image: 'https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/4%201.png'
       },
       {
-        layout: 'center', // Đổi về layout center để chữ nằm chính giữa màn hình (đè lên ảnh full)
-        title: "Chúc các bạn nữ lớp PTKD 65",
-        text: "luôn yêu vẻ đẹp riêng biệt bản thân",
-        titleColor: "#e11d48", // Đỏ hồng
-        image: "https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/Pink%20and%20Purple%20Elegant%20International%20Women's%20Day%20Presentation.png",
-        fullScreenImage: true, // Cờ cho ảnh full toàn trang
+        layout: 'center',
+        title: 'Chúc các bạn nữ lớp PTKD 65',
+        text: 'luôn yêu vẻ đẹp riêng biệt của bản thân',
+        titleColor: '#e11d48',
+        image: 'https://raw.githubusercontent.com/nguyendangminh278-coder/chucmung8thang3/308436086c9b5981aa1ccc18f6d274dd46b505fd/Index/Pink%20and%20Purple%20Elegant%20International%20Women%27s%20Day%20Presentation.png',
+        fullScreenImage: true,
         textFloral: true,
         petals: true
       },
       {
         layout: 'triangle',
-        image: "",
+        image: '',
+        isFlowerInteractive: true,
+        flowerPrompt: 'Hãy mở bông hoa này',
         multiLines: [
-          { text: "Luôn hồn nhiên tinh nghịch", color: "#ec4899", class: "t-top" },
-          { text: "Luôn bay bổng tâm hồn", color: "#3b82f6", class: "t-left" },
-          { text: "Luôn hạnh phúc với chính mình", color: "#8b5cf6", class: "t-right" }
+          { text: 'Luôn hồn nhiên\ntinh nghịch', color: '#ec4899', class: 't-top' },
+          { text: 'Luôn bay bổng\ntâm hồn', color: '#3b82f6', class: 't-left' },
+          { text: 'Luôn hạnh phúc\nvới chính mình', color: '#8b5cf6', class: 't-right' }
         ]
       }
     ];
+
+    function keepLastWords(text, count = 2) {
+      if (!text) return text;
+      const parts = text.split('\n');
+      return parts
+        .map((line) => {
+          const words = line.trim().split(/\s+/);
+          if (words.length <= count) return line;
+          const head = words.slice(0, -count).join(' ');
+          const tail = words.slice(-count).join('\u00A0');
+          return `${head} ${tail}`.trim();
+        })
+        .join('\n');
+    }
+
+    slidesData.forEach((slide) => {
+      if (slide.title) slide.title = keepLastWords(slide.title, 2);
+      if (slide.text) slide.text = keepLastWords(slide.text, 2);
+      if (slide.flowerPrompt) slide.flowerPrompt = keepLastWords(slide.flowerPrompt, 2);
+      if (slide.multiLines) {
+        slide.multiLines = slide.multiLines.map((line) => ({
+          ...line,
+          text: keepLastWords(line.text, 2)
+        }));
+      }
+    });
 
     const container = document.getElementById('story-container');
     const promptEl = document.getElementById('continue-prompt');
@@ -503,7 +619,6 @@
     let typingQueue = [];
     let petalInterval;
 
-    // --- HỆ THỐNG HOA RƠI ---
     function startPetals() {
       if (document.getElementById('petal-container')) return;
       const petalBox = document.createElement('div');
@@ -523,6 +638,7 @@
         petalBox.appendChild(item);
         setTimeout(() => item.remove(), 10000);
       }
+
       for (let i = 0; i < 15; i++) spawn();
       petalInterval = setInterval(spawn, 300);
     }
@@ -533,7 +649,6 @@
       if (petalBox) petalBox.remove();
     }
 
-    // --- HỆ THỐNG GÕ CHỮ ---
     function typeWriter(text, element, callback) {
       element.innerHTML = '';
       let i = 0;
@@ -548,105 +663,143 @@
           } else {
             cursor.insertAdjacentText('beforebegin', text.charAt(i));
           }
-          i++;
+          i += 1;
           setTimeout(typing, currentTypingSpeed);
         } else {
           cursor.remove();
           if (callback) callback();
         }
       }
+
       typing();
     }
 
     function processQueue() {
       if (typingQueue.length === 0) {
         isWaitingForClick = true;
-        promptEl.style.opacity = 1;
+        if (slidesData[currentSlide].isFlowerInteractive) {
+          const ft = document.getElementById('dyn-flower-text');
+          if (ft) ft.style.animation = 'pulse 1.5s infinite';
+          promptEl.style.display = 'none';
+        } else {
+          promptEl.style.display = 'block';
+          promptEl.style.opacity = 1;
+        }
         return;
       }
+
       const task = typingQueue.shift();
       typeWriter(task.text, task.element, () => {
         setTimeout(processQueue, currentTypingSpeed === 5 ? 0 : 400);
       });
     }
 
-    // --- HỆ THỐNG DỰNG GIAO DIỆN ĐỘNG ---
     function buildSlideDOM(data) {
       container.className = `layout-${data.layout}`;
       container.innerHTML = '';
       typingQueue = [];
 
-      // Phân loại thẻ HTML của ảnh dựa trên cờ fullScreenImage
-      const imgClass = data.fullScreenImage ? "fullscreen-bg" : "standard-img";
+      const imgClass = data.fullScreenImage ? 'fullscreen-bg' : 'standard-img';
       const imgHTML = data.image ? `<img id="dyn-image" class="${imgClass}" src="${data.image}" alt="">` : '';
+      const titleClass = data.titleClass ? data.titleClass : '';
+      const titleColorStyle = data.titleColor ? `color: ${data.titleColor}` : '';
 
       if (data.layout === 'vertical') {
         container.innerHTML = `
-        <div class="title" id="dyn-title" style="color: ${data.titleColor}"></div>
-        ${imgHTML}
-        <div class="text" id="dyn-text"></div>
-      `;
+          <div class="title ${titleClass}" id="dyn-title" style="${titleColorStyle}"></div>
+          ${imgHTML}
+          <div class="text" id="dyn-text"></div>
+        `;
         typingQueue.push({ text: data.title, element: document.getElementById('dyn-title') });
         typingQueue.push({ text: data.text, element: document.getElementById('dyn-text') });
-
       } else if (data.layout === 'center') {
         container.innerHTML = `
-        ${imgHTML}
-        <div class="title" id="dyn-title" style="color: ${data.titleColor}"></div>
-        <div class="text ${data.textFloral ? 'floral-text' : ''}" id="dyn-text"></div>
-      `;
+          ${imgHTML}
+          <div class="title ${titleClass}" id="dyn-title" style="${titleColorStyle}"></div>
+          <div class="text ${data.textFloral ? 'floral-text' : ''}" id="dyn-text"></div>
+        `;
         typingQueue.push({ text: data.title, element: document.getElementById('dyn-title') });
         if (data.text) {
           typingQueue.push({ text: data.text, element: document.getElementById('dyn-text') });
         }
-
       } else if (data.layout === 'split') {
         container.innerHTML = `
-        <div class="title" id="dyn-title" style="color: ${data.titleColor}"></div>
-        ${imgHTML}
-        <div class="text" id="dyn-text"></div>
-      `;
+          <div class="title ${titleClass}" id="dyn-title" style="${titleColorStyle}"></div>
+          ${imgHTML}
+          <div class="text" id="dyn-text"></div>
+        `;
         typingQueue.push({ text: data.title, element: document.getElementById('dyn-title') });
         typingQueue.push({ text: data.text, element: document.getElementById('dyn-text') });
-
       } else if (data.layout === 'triangle') {
+        let flowerHTML = '';
+        if (data.isFlowerInteractive) {
+          flowerHTML = `
+            <div id="cherry-blossom-btn" class="cherry-blossom-container" style="opacity: 0;">
+              <svg viewBox="0 0 100 100" class="rotating-flower">
+                <defs>
+                  <g id="sakura-petal">
+                    <path d="M 50 50 C 35 30, 25 15, 40 5 C 45 2, 48 5, 50 10 C 52 5, 55 2, 60 5 C 75 15, 65 30, 50 50 Z" fill="#ffb7c5" stroke="#ff7eb3" stroke-width="1"/>
+                    <line x1="50" y1="50" x2="50" y2="25" stroke="#ff4b91" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="50" y1="50" x2="43" y2="32" stroke="#ff4b91" stroke-width="1" stroke-linecap="round"/>
+                    <line x1="50" y1="50" x2="57" y2="32" stroke="#ff4b91" stroke-width="1" stroke-linecap="round"/>
+                  </g>
+                </defs>
+                <use href="#sakura-petal" transform="rotate(0 50 50)" />
+                <use href="#sakura-petal" transform="rotate(72 50 50)" />
+                <use href="#sakura-petal" transform="rotate(144 50 50)" />
+                <use href="#sakura-petal" transform="rotate(216 50 50)" />
+                <use href="#sakura-petal" transform="rotate(288 50 50)" />
+                <circle cx="50" cy="50" r="7" fill="#ff4b91" />
+                <circle cx="50" cy="50" r="3" fill="#ffffff" />
+              </svg>
+              <div class="flower-text-prompt" id="dyn-flower-text"></div>
+            </div>
+          `;
+        }
+
         container.innerHTML = `
-        <div class="triangle-wrapper">
-          ${imgHTML}
-          <div class="triangle-text t-top" id="dyn-t1" style="color: ${data.multiLines[0].color}"></div>
-          <div class="triangle-text t-left" id="dyn-t2" style="color: ${data.multiLines[1].color}"></div>
-          <div class="triangle-text t-right" id="dyn-t3" style="color: ${data.multiLines[2].color}"></div>
-        </div>
-      `;
+          <div class="triangle-wrapper">
+            ${imgHTML}
+            ${flowerHTML}
+            <div class="triangle-text t-top" id="dyn-t1" style="color: ${data.multiLines[0].color}"></div>
+            <div class="triangle-text t-left" id="dyn-t2" style="color: ${data.multiLines[1].color}"></div>
+            <div class="triangle-text t-right" id="dyn-t3" style="color: ${data.multiLines[2].color}"></div>
+          </div>
+        `;
         typingQueue.push({ text: data.multiLines[0].text, element: document.getElementById('dyn-t1') });
         typingQueue.push({ text: data.multiLines[1].text, element: document.getElementById('dyn-t2') });
         typingQueue.push({ text: data.multiLines[2].text, element: document.getElementById('dyn-t3') });
-
+        if (data.isFlowerInteractive) {
+          typingQueue.push({ text: data.flowerPrompt, element: document.getElementById('dyn-flower-text') });
+        }
       } else {
-        // Default
         container.innerHTML = `
-        <div class="image-col">${imgHTML}</div>
-        <div class="text-col">
-          <div class="title" id="dyn-title" style="color: ${data.titleColor}"></div>
-          <div class="text ${data.textFloral ? 'floral-text' : ''}" id="dyn-text"></div>
-        </div>
-      `;
+          <div class="image-col">${imgHTML}</div>
+          <div class="text-col">
+            <div class="title ${titleClass}" id="dyn-title" style="${titleColorStyle}"></div>
+            <div class="text ${data.textFloral ? 'floral-text' : ''}" id="dyn-text"></div>
+          </div>
+        `;
         typingQueue.push({ text: data.title, element: document.getElementById('dyn-title') });
         typingQueue.push({ text: data.text, element: document.getElementById('dyn-text') });
       }
 
-      // Hiệu ứng Fade-in cho ảnh
       const imgEl = document.getElementById('dyn-image');
       if (imgEl) {
         setTimeout(() => imgEl.classList.add('show'), 100);
       }
+
+      const flowerEl = document.getElementById('cherry-blossom-btn');
+      if (flowerEl) {
+        setTimeout(() => {
+          flowerEl.style.opacity = 1;
+        }, 100);
+      }
     }
 
-    // --- TRÌNH ĐIỀU KHIỂN CHÍNH ---
     function playSlide(index) {
       if (index >= slidesData.length) {
-        // Chuyển sang trang loinhan.html sau khi hết slide cuối
-        window.location.href = "loinhan.html";
+        window.location.href = 'loinhan.html';
         return;
       }
 
@@ -654,6 +807,12 @@
       currentTypingSpeed = 50;
       isWaitingForClick = false;
       promptEl.style.opacity = 0;
+
+      if (data.isFlowerInteractive) {
+        promptEl.style.display = 'none';
+      } else {
+        promptEl.style.display = 'block';
+      }
 
       if (data.petals) startPetals();
       else stopPetals();
@@ -666,18 +825,41 @@
       }, 400);
     }
 
-    // Bắt sự kiện Click / Chạm
     document.addEventListener('click', () => {
       if (isTransitioning) return;
 
       if (isWaitingForClick) {
+        if (slidesData[currentSlide].isFlowerInteractive) {
+          isTransitioning = true;
+          promptEl.style.opacity = 0;
+
+          const flowerContainer = document.getElementById('cherry-blossom-btn');
+          const textPrompt = document.getElementById('dyn-flower-text');
+
+          if (textPrompt) textPrompt.style.opacity = 0;
+          document.querySelectorAll('.triangle-text').forEach((el) => {
+            el.style.transition = 'opacity 0.5s';
+            el.style.opacity = 0;
+          });
+
+          if (flowerContainer) {
+            flowerContainer.classList.add('zoom-out-effect');
+          }
+
+          setTimeout(() => {
+            window.location.href = 'loinhan.html';
+          }, 2000);
+
+          return;
+        }
+
         isWaitingForClick = false;
         isTransitioning = true;
         promptEl.style.opacity = 0;
         container.style.opacity = 0;
 
         setTimeout(() => {
-          currentSlide++;
+          currentSlide += 1;
           playSlide(currentSlide);
           isTransitioning = false;
         }, 500);
@@ -686,15 +868,11 @@
       }
     });
 
-    // Khởi động
     window.onload = () => {
       setTimeout(() => {
         playSlide(currentSlide);
       }, 300);
     };
-
   </script>
-
 </body>
-
 </html>

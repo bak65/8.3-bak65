@@ -77,44 +77,41 @@
         <div class="glass-panel rounded-3xl w-full max-w-6xl flex flex-col lg:flex-row overflow-hidden"
             style="height: 85vh;">
 
-            <!-- Nửa bên trái -->
-            <div class="w-full lg:w-1/2 p-6 flex flex-col border-b lg:border-b-0 lg:border-r border-pink-200">
-                <!-- Element 1: Góc trái trên - Ảnh đã chọn -->
-                <div
-                    class="w-full aspect-[1652/1028] flex-none mb-4 rounded-2xl overflow-hidden bg-white/50 flex items-center justify-center shadow-inner relative group">
+            <!-- Cột trái: Ảnh + Note lời chúc -->
+            <div class="w-full lg:w-2/5 p-5 flex flex-col border-b lg:border-b-0 lg:border-r border-pink-200">
+                <!-- Ảnh đã chọn: giữ đúng tỉ lệ 1625:1028, hiển thị toàn bộ không crop -->
+                <div class="w-full rounded-2xl overflow-hidden bg-black/5 flex-none mb-3 shadow-inner relative group"
+                    style="aspect-ratio: 1625 / 1028;">
                     <img id="selected-image" src="" alt="Ảnh đã chọn"
-                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-
+                        class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105">
                     <!-- Nút Tải Ảnh -->
                     <button type="button" onclick="downloadImage()" title="Tải ảnh này xuống"
-                        class="absolute bottom-4 right-4 bg-white/90 hover:bg-pink-500 hover:text-white text-pink-600 p-3 rounded-full shadow-lg backdrop-blur-md transition-all z-10 opacity-0 group-hover:opacity-100 focus:opacity-100 flex items-center justify-center">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="absolute bottom-3 right-3 bg-white/90 hover:bg-pink-500 hover:text-white text-pink-600 p-2.5 rounded-full shadow-lg backdrop-blur-md transition-all z-10 opacity-0 group-hover:opacity-100 focus:opacity-100 flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                         </svg>
                     </button>
                 </div>
 
-                <!-- Element 2: Góc trái dưới - Phần Note chúc -->
+                <!-- Phần Note chúc - chiếm phần còn lại -->
                 <div
-                    class="flex-1 min-h-0 bg-pink-50/80 p-6 rounded-2xl shadow-inner overflow-y-auto no-scrollbar relative">
-                    <div class="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
-                        <svg class="w-12 h-12 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                    class="flex-1 min-h-0 bg-pink-50/80 p-5 rounded-2xl shadow-inner overflow-y-auto no-scrollbar relative">
+                    <div class="absolute top-0 right-0 p-3 opacity-15 pointer-events-none">
+                        <svg class="w-10 h-10 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
                             <path
                                 d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                         </svg>
                     </div>
-                    <h3 class="title-font text-3xl text-pink-600 mb-3">Lời chúc 8/3</h3>
-                    <p class="text-pink-900 leading-relaxed text-sm md:text-base">
-                        Chúc mừng ngày 8/3 nha nha nha bak65
-                        <br><br>
-                        <i>(Bạn có thể dễ dàng sửa đoạn text này trong mã nguồn HTML)</i>
+                    <h3 class="title-font text-2xl text-pink-600 mb-2">Chút Tarot về bạn</h3>
+                    <p id="wish-text" class="text-pink-900 leading-relaxed text-sm md:text-base">
+                        Chọn ảnh của bạn để xem lời chúc riêng nhé 🌸
                     </p>
                 </div>
             </div>
 
-            <!-- Nửa bên phải: Element 3 - Form nhập liệu -->
-            <div class="w-full lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center relative bg-white/30">
+            <!-- Cột phải: Form nhập liệu -->
+            <div class="w-full lg:w-3/5 p-8 lg:p-12 flex flex-col justify-center relative bg-white/30">
                 <div class="mt-2 lg:mt-0">
                     <h2 class="title-font text-4xl text-pink-600 mb-2">Gửi gắm tương lai</h2>
                     <p class="text-gray-500 mb-8">Một cơ hội để nhìn lại hiện tại và gửi chút thương cho ngày mai</p>
@@ -126,18 +123,18 @@
                             <input type="email" name="email" required
                                 pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
                                 title="Vui lòng nhập đúng định dạng email (VD: ten@gmail.com)"
-                                class="w-full px-5 py-4 rounded-xl border border-pink-200 bg-white/80 focus:bg-white focus:ring-4 focus:ring-pink-100 focus:border-pink-400 outline-none transition-all shadow-sm"
+                                class="w-full px-4 py-3 rounded-xl border border-pink-200 bg-white/80 focus:bg-white focus:ring-4 focus:ring-pink-100 focus:border-pink-400 outline-none transition-all shadow-sm"
                                 placeholder="bomaycatdaumoi@gmail.com">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-pink-700 mb-2">Điều gửi gắm cho chính bản
                                 thân</label>
-                            <textarea name="message" required rows="5"
-                                class="w-full px-5 py-4 rounded-xl border border-pink-200 bg-white/80 focus:bg-white focus:ring-4 focus:ring-pink-100 focus:border-pink-400 outline-none transition-all shadow-sm resize-none"
+                            <textarea name="message" required rows="4"
+                                class="w-full px-4 py-3 rounded-xl border border-pink-200 bg-white/80 focus:bg-white focus:ring-4 focus:ring-pink-100 focus:border-pink-400 outline-none transition-all shadow-sm resize-none"
                                 placeholder="Hãy viết những lời yêu thương dành cho chính mình ở tương lai..."></textarea>
                         </div>
                         <button type="submit" id="submit-btn"
-                            class="w-full bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg hover:shadow-pink-500/30 transition-all transform flex justify-center items-center">
+                            class="w-full bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-bold text-lg py-3 px-8 rounded-xl shadow-lg hover:shadow-pink-500/30 transition-all transform flex justify-center items-center">
                             <span>Gửi yêu thương</span>
                             <!-- SVG Spinner (ẩn mặc định) -->
                             <svg id="loading-spinner" class="animate-spin ml-3 h-5 w-5 text-white hidden"
@@ -151,6 +148,7 @@
                         </button>
                     </form>
                 </div>
+
             </div>
 
         </div>
@@ -166,27 +164,35 @@
     <!-- ============================================== -->
     <!-- OVERLAY ĐANG CHUYỂN TỚI PHẦN QUÀ (Loading)     -->
     <!-- ============================================== -->
-    <div id="gift-loading-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-pink-50/90 backdrop-blur-sm transition-opacity duration-500 opacity-0">
-        <div class="text-center p-8 bg-white/70 rounded-3xl shadow-2xl border 2 border-pink-200 flex flex-col items-center transform scale-95 transition-transform duration-500" id="gift-loading-box">
+    <div id="gift-loading-overlay"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-pink-50/90 backdrop-blur-sm transition-opacity duration-500 opacity-0">
+        <div class="text-center p-8 bg-white/70 rounded-3xl shadow-2xl border 2 border-pink-200 flex flex-col items-center transform scale-95 transition-transform duration-500"
+            id="gift-loading-box">
             <!-- Icon Hộp quà đung đưa -->
             <div class="text-6xl mb-6 animate-bounce">🎁</div>
             <h2 class="title-font text-4xl text-pink-600 mb-3 animate-pulse">Chờ một chút nha...</h2>
-            <p class="text-lg text-pink-800 font-medium">Bạn còn một phần quà bí mật nữa cơ! 🥰</p>
-            
+            <p class="text-lg text-pink-800 font-medium">Còn nhiều điều thú vị phía sau! 🥰</p>
+
             <!-- Thanh loading nhỏ mềm mại -->
             <div class="w-48 h-2 bg-pink-100 rounded-full mt-6 overflow-hidden">
                 <div class="h-full bg-pink-500 rounded-full loading-bar w-0"></div>
             </div>
         </div>
     </div>
-    
+
     <style>
         .loading-bar {
             animation: fillBar 3.5s ease-in-out forwards;
         }
+
         @keyframes fillBar {
-            0% { width: 0%; }
-            100% { width: 100%; }
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
         }
     </style>
 
@@ -194,8 +200,60 @@
     <!-- JAVASCRIPT XỬ LÝ LOGIC CHUYỂN TRANG VÀ RENDER  -->
     <!-- ============================================== -->
     <script>
-        // 1. Tạo 22 ảnh cho Trang 1
-        const gallery = document.getElementById('gallery');
+        // ============================================
+        // 1. Mảng 22 lời chúc riêng cho từng ảnh
+        // ============================================
+        // Index 0 = ảnh 1 (girl_image/1.png), index 21 = ảnh 22
+        const wishes = [
+            // 1
+            "Lá The Sun (Xuôi) mang năng lượng Ẩn Chính rực rỡ, cho thấy tâm lý hoài nghi bản thân của bạn đã đến lúc nhường chỗ cho sự tự tin. The Sun xuất hiện nói rằng năm nay là thời điểm định mệnh để bạn bước ra ánh sáng và xua tan mọi bế tắc. Thông điệp mình nhận được là bạn hãy ngừng che giấu tài năng, mạnh dạn thể hiện năng lực trước đám đông để thu hút may mắn.",
+            // 2
+            "Lá Ace of Pentacles (Xuôi) mang năng lượng Ẩn Phụ thực tế, phản chiếu khao khát tìm kiếm sự ổn định thay vì những lời hứa viển vông. Ace of Pentacles xuất hiện nói rằng vũ trụ đang trao cho bạn một hạt giống cơ hội mới về học tập hoặc tài chính. Thông điệp mình nhận được là bạn hãy lập tức bắt tay vào hành động và kiên trì rèn luyện kỷ luật để biến ý tưởng thành kết quả cầm nắm được.",
+            // 3
+            "Lá The Hermit (Xuôi) mang năng lượng Ẩn Chính hướng nội, cho thấy bạn đang mệt mỏi với thế giới ồn ào và muốn tìm ý nghĩa thực sự của bản thân. The Hermit xuất hiện nói rằng đây là năm để bạn tĩnh lặng và trưởng thành về mặt nhận thức. Thông điệp mình nhận được là bạn hãy dành thời gian thiền định, bảo vệ năng lượng cá nhân và tin vào trực giác thay vì chạy theo số đông.",
+            // 4
+            "Lá Eight of Wands (Xuôi) mang năng lượng Ẩn Phụ tốc độ, cho thấy khao khát bứt phá và muốn thấy ngay kết quả của bạn. Eight of Wands xuất hiện nói rằng các sự kiện và cơ hội sẽ đến dồn dập, đòi hỏi sự linh hoạt tối đa. Thông điệp mình nhận được là bạn hãy giữ cái đầu lạnh, giải quyết từng việc thật dứt khoát và không để tốc độ làm mình hoảng loạn.",
+            // 5
+            "Lá Queen of Cups (Xuôi) mang năng lượng Ẩn Phụ cảm xúc, phản chiếu sự nhạy cảm và lòng trắc ẩn sâu sắc bên trong bạn. Queen of Cups xuất hiện nói rằng trực giác của bạn sẽ rất nhạy bén, nhưng bạn dễ bị kiệt sức nếu cứ hấp thụ năng lượng tiêu cực từ người khác. Thông điệp mình nhận được là bạn cần thiết lập ranh giới cảm xúc, ưu tiên vỗ về đứa trẻ bên trong mình trước khi cố gắng chữa lành cho ai.",
+            // 6
+            "Lá Knight of Swords (Xuôi) mang năng lượng Ẩn Phụ lý trí, cho thấy sự quyết liệt và đôi khi hơi nóng vội trong tư duy của bạn. Knight of Swords xuất hiện nói rằng bạn sẽ gặt hái thành quả nhờ trí tuệ sắc bén, nhưng dễ vướng vào tranh cãi gắt gao. Thông điệp mình nhận được là bạn hãy cẩn trọng với lời nói, dùng ngôn từ để giải quyết vấn đề thay vì sát thương người khác.",
+            // 7
+            "Lá Two of Cups (Xuôi) mang năng lượng Ẩn Phụ kết nối, cho thấy bạn khao khát sự đồng điệu và chân thành sau những mối quan hệ thiếu cân bằng. Two of Cups xuất hiện nói rằng đây là một năm tuyệt vời để hòa giải và xây dựng những mối quan hệ bình đẳng. Thông điệp mình nhận được là bạn hãy cởi mở trái tim, từ bỏ các kết nối độc hại và trân trọng những người thực sự thấu hiểu mình.",
+            // 8
+            "Lá Page of Pentacles (Xuôi) mang năng lượng Ẩn Phụ thực tế, phản chiếu tâm lý ham học hỏi nhưng lại hay sợ sai lầm của bạn. Page of Pentacles xuất hiện nói rằng đây là thời điểm lý tưởng để bạn kiên nhẫn làm một người học việc chăm chỉ. Thông điệp mình nhận được là bạn hãy giữ thái độ cầu thị, từng bước rèn luyện kỹ năng nhỏ mỗi ngày để tạo nền móng vững chắc.",
+            // 9
+            "Lá The Empress (Xuôi) mang năng lượng Ẩn Chính nuôi dưỡng, cho thấy bạn đang khao khát được chăm sóc bản thân và tận hưởng cái đẹp. The Empress xuất hiện nói rằng đây là năm định mệnh của sự sung túc và sinh sôi nảy nở. Thông điệp mình nhận được là bạn hãy ưu tiên chăm sóc sức khỏe thể chất, làm đẹp không gian sống và cho phép mình đón nhận những điều tốt đẹp.",
+            // 10
+            "Lá Four of Wands (Xuôi) mang năng lượng Ẩn Phụ vững chắc, phản chiếu nhu cầu thuộc về một tập thể an toàn nơi bạn được là chính mình. Four of Wands xuất hiện nói rằng bạn sẽ gặt hái những cột mốc thành tựu đáng tự hào và có sự gắn kết mạnh mẽ với gia đình. Thông điệp mình nhận được là bạn hãy dành thời gian ăn mừng những chiến thắng nhỏ cùng người thân để tiếp thêm sức mạnh tinh thần.",
+            // 11
+            "Lá The Chariot (Xuôi) mang năng lượng Ẩn Chính ý chí, cho thấy bạn đang gồng mình kiểm soát những mâu thuẫn nội tâm giằng xé. The Chariot xuất hiện nói rằng bạn sẽ đối mặt với áp lực lớn nhưng hoàn toàn có năng lực điều khiển nghịch cảnh đi đúng quỹ đạo. Thông điệp mình nhận được là bạn tuyệt đối không được trốn tránh, hãy rèn luyện kỷ luật thép để lèo lái bản thân vượt qua sóng gió.",
+            // 12
+            "Lá Nine of Pentacles (Xuôi) mang năng lượng Ẩn Phụ tự chủ, cho thấy bạn nhận ra giá trị của sự độc lập và không muốn dựa dẫm vào ai. Nine of Pentacles xuất hiện nói rằng bạn sẽ tỏa sáng rực rỡ và gặt hái thành quả xứng đáng nhờ nỗ lực tự thân. Thông điệp mình nhận được là bạn hãy tiếp tục tự lập về tài chính và cảm xúc, tự thưởng cho mình và tự hào về khu vườn thành quả riêng.",
+            // 13
+            "Lá Temperance (Xuôi) mang năng lượng Ẩn Chính cân bằng, phản chiếu hành trình xoa dịu tổn thương và điều chỉnh tâm lý của bạn. Temperance xuất hiện nói rằng bài học lớn của bạn là nghệ thuật dung hòa các yếu tố đối lập trong cuộc sống. Thông điệp mình nhận được là bạn hãy tránh xa mọi phản ứng bốc đồng, kiên nhẫn lùi lại một bước để có cái nhìn toàn cảnh khi đối mặt khủng hoảng.",
+            // 14
+            "Lá Six of Swords (Xuôi) mang năng lượng Ẩn Phụ chuyển giao, cho thấy tâm trí bạn khao khát rời bỏ hoàn cảnh ngột ngạt để tìm bình yên. Six of Swords xuất hiện nói rằng đây là lúc bạn chèo lái con thuyền cuộc đời khỏi vùng nước giông bão. Thông điệp mình nhận được là bạn hãy dũng cảm buông bỏ quá khứ, không mang theo oán giận lên hành trình đi về tương lai.",
+            // 15
+            "Lá The Star (Xuôi) mang năng lượng Ẩn Chính hy vọng, cho thấy dù từng đổ vỡ niềm tin, sự thuần khiết bên trong bạn vẫn chưa tắt. The Star xuất hiện nói rằng dòng nước trong lành sẽ gột rửa mọi u buồn và mang lại cho bạn nguồn cảm hứng bất tận. Thông điệp mình nhận được là bạn hãy thực hành các liệu pháp chữa lành, luôn giữ niềm tin tích cực vì tương lai đang cực kỳ rộng mở.",
+            // 16
+            "Lá Three of Pentacles (Xuôi) mang năng lượng Ẩn Phụ hợp tác, phản chiếu sự tập trung nâng cao giá trị bản thân qua môi trường làm việc nhóm. Three of Pentacles xuất hiện nói rằng thành công của bạn sẽ đến từ sự cọ xát và phối hợp nhịp nhàng với những người cộng sự giỏi. Thông điệp mình nhận được là bạn hãy gác lại cái tôi cá nhân, tích cực lắng nghe và học hỏi từ những người đi trước để cùng nhau phát triển.",
+            // 17
+            "Lá Justice (Xuôi) mang năng lượng Ẩn Chính minh bạch, cho thấy bạn không chấp nhận sự mập mờ và khao khát công lý trong mọi việc. Justice xuất hiện nói rằng quy luật nhân quả sẽ vận hành, những gì bạn gieo trồng tử tế sẽ trổ quả ngọt xứng đáng. Thông điệp mình nhận được là bạn hãy sống trung thực, dùng lý trí phân tích các ngã rẽ và luôn bảo vệ lẽ phải.",
+            // 18
+            "Lá Page of Cups (Xuôi) mang năng lượng Ẩn Phụ mộng mơ, cho thấy bên trong bạn vẫn luôn tồn tại một tâm hồn ngây thơ, giàu trí tưởng tượng. Page of Cups xuất hiện nói rằng bạn sẽ nhận được những thông điệp vui vẻ và nhẹ nhàng về tình cảm hoặc nghệ thuật. Thông điệp mình nhận được là bạn hãy thả lỏng, sống thật với cảm xúc và tự do theo đuổi những sở thích mang lại niềm vui thuần khiết.",
+            // 19
+            "Lá King of Wands (Xuôi) mang năng lượng Ẩn Phụ bản lĩnh, phản chiếu nội lực to lớn và khao khát tự do thể hiện tầm nhìn lãnh đạo của bạn. King of Wands xuất hiện nói rằng đây là thời điểm bạn tỏa sáng rực rỡ và truyền cảm hứng mạnh mẽ đến mọi người. Thông điệp mình nhận được là bạn hãy tự tin đứng ra nhận trách nhiệm, dùng ngọn lửa đam mê để biến ý tưởng thành hành động thực tế.",
+            // 20
+            "Lá Ace of Swords (Xuôi) mang năng lượng Ẩn Phụ đột phá, cho thấy tâm trí bạn đang rất cần một chân lý để chặt đứt những nhập nhằng. Ace of Swords xuất hiện nói rằng bạn sẽ có những khoảnh khắc thức tỉnh nhận thức sắc bén để nhìn thấu mọi sự thật. Thông điệp mình nhận được là bạn hãy mạnh dạn dùng tư duy logic và sự giao tiếp thẳng thắn để cắt đứt mọi hoàn cảnh mập mờ, bòn rút năng lượng.",
+            // 21
+            "Lá Ten of Cups (Xuôi) mang năng lượng Ẩn Phụ viên mãn, phản chiếu khát vọng sâu thẳm về một bến đỗ bình yên bên gia đình và người tri kỷ. Ten of Cups xuất hiện nói rằng đây là một năm vô cùng trọn vẹn về mặt cảm xúc, mọi mâu thuẫn cũ sẽ được hóa giải. Thông điệp mình nhận được là bạn hãy hướng trọng tâm vào đời sống tinh thần, trân trọng hiện tại và lan tỏa hơi ấm đến những người xung quanh.",
+            // 22
+            "Lá The High Priestess (Xuôi) mang năng lượng Ẩn Chính tĩnh lặng, cho thấy bạn đang thấu cảm được nhiều điều vượt ra ngoài bề nổi. The High Priestess xuất hiện nói rằng đây là năm định mệnh để bạn khai mở trực giác thay vì phô trương hay vội vã. Thông điệp mình nhận được là bạn hãy tin tưởng tuyệt đối vào linh cảm đầu tiên, rèn luyện sự tĩnh lặng để thời gian tự lật mở những câu trả lời.",
+        ];
+
+        // ============================================
+        // 2. Tạo 22 ảnh cho Trang 1
+        // ============================================
 
         // Vòng lặp từ 1 đến 22 để tạo thẻ div chứa ảnh
         for (let i = 1; i <= 22; i++) {
@@ -213,7 +271,7 @@
                 <img src="${imgPath}" alt="Girl ${i}" 
                      onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1520775985859-5778dc652431?auto=format&fit=crop&q=80&w=600'; this.classList.add('opacity-80')" 
                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                     onclick="selectImage('${imgPath}')">
+                     onclick="selectImage('${imgPath}', ${i})">
                 <div class="absolute inset-0 bg-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
             `;
             gallery.appendChild(div);
@@ -234,7 +292,7 @@
         }
 
         // 3. Hàm chọn ảnh ở Trang 1 và chuyển sang Trang 2
-        function selectImage(src) {
+        function selectImage(src, imageIndex) {
             const selectedImgEl = document.getElementById('selected-image');
             selectedImgEl.src = src;
 
@@ -242,6 +300,12 @@
             selectedImgEl.onerror = function () {
                 this.src = 'https://images.unsplash.com/photo-1520775985859-5778dc652431?auto=format&fit=crop&q=80&w=1200';
             };
+
+            // Cập nhật lời chúc riêng theo ảnh (imageIndex bắt đầu từ 1)
+            const wishEl = document.getElementById('wish-text');
+            if (wishEl && imageIndex >= 1 && imageIndex <= wishes.length) {
+                wishEl.innerHTML = wishes[imageIndex - 1];
+            }
 
             showPage('page2');
         }
@@ -318,7 +382,7 @@
                         // Hiển thị Overlay Loading thay vì chuyển trang ngay
                         const loadingOverlay = document.getElementById('gift-loading-overlay');
                         const loadingBox = document.getElementById('gift-loading-box');
-                        
+
                         loadingOverlay.classList.remove('hidden');
                         // Tạo hiệu ứng fade-in
                         setTimeout(() => {
@@ -330,9 +394,9 @@
 
                         // Đợi 3.5 giây cho thanh loading chạy xong rồi mới chuyển trang
                         setTimeout(() => {
-                            window.location.href = 'end.html';
+                            window.location.href = 'saucontent.html';
                         }, 3500);
-                        
+
                         form.reset(); // Reset form sau khi gửi thành công
                     } else {
                         alert('Có lỗi xảy ra khi gửi dữ liệu. Vui lòng thử lại!');

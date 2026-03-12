@@ -69,6 +69,20 @@
             box-shadow: 0 10px 25px rgba(244, 63, 94, 0.2);
         }
 
+        .loading-bar {
+            animation: fillBar 3.5s ease-in-out forwards;
+        }
+
+        @keyframes fillBar {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
         /* Hiệu ứng nổi bật cho tên */
         .sender-name {
             background: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
@@ -128,15 +142,44 @@
         <!-- Nút chuyển sang trang tiếp theo -->
         <div class="mt-16 text-center pb-12" style="animation: fadeInUp 1.5s ease-out forwards; opacity: 0;">
             <p class="text-gray-500 mb-6 font-medium">Bạn đã đọc hết lời chúc rồi, giờ thì làm gì tiếp theo nhỉ?</p>
-            <a href="content.html"
+            <button onclick="goToContent()"
                 class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-rose-400 to-pink-500 hover:from-rose-500 hover:to-pink-600 text-white rounded-full font-bold text-lg transition-transform hover:scale-105 shadow-xl shadow-rose-200">
                 Mở Quà Bí Mật Tiếp Theo <i data-lucide="sparkles" class="w-5 h-5"></i>
-            </a>
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay Loading chuyển trang -->
+    <div id="gift-loading-overlay"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-pink-50/90 backdrop-blur-sm transition-opacity duration-500 opacity-0">
+        <div class="text-center p-8 bg-white/70 rounded-3xl shadow-2xl border border-pink-200 flex flex-col items-center transform scale-95 transition-transform duration-500"
+            id="gift-loading-box">
+            <div class="text-6xl mb-6 animate-bounce">🎁</div>
+            <h2 class="text-4xl text-pink-600 mb-3 animate-pulse font-bold">Chờ một chút nha...</h2>
+            <p class="text-lg text-pink-800 font-medium">Bạn còn một phần quà bí mật nữa cơ! 🥰</p>
+            <div class="w-48 h-2 bg-pink-100 rounded-full mt-6 overflow-hidden">
+                <div class="h-full bg-pink-500 rounded-full loading-bar w-0"></div>
+            </div>
         </div>
     </div>
 
     <!-- Script xử lý Logic & Render Dữ liệu -->
     <script>
+        function goToContent() {
+            const overlay = document.getElementById('gift-loading-overlay');
+            const box = document.getElementById('gift-loading-box');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                overlay.classList.add('opacity-100');
+                box.classList.remove('scale-95');
+                box.classList.add('scale-100');
+            }, 50);
+            setTimeout(() => {
+                window.location.href = 'content.html';
+            }, 3500);
+        }
+
         // Dữ liệu lời chúc từ hình ảnh (0 = Ẩn danh)
         const wishesData = [
             { name: "Qcuong27", text: "8/3 chúc các bạn nữ luôn tươi tắn, xinh đẹp, gpa auto 4.0, ai có người yêu thì hạnh phúc bên người thương, ai không có thì thôi he he he ✌️" },
@@ -153,13 +196,23 @@
             { name: "Hson", text: "Chúc bạn hay ăn chóng lớn học giỏi cute" },
             { name: "0", text: "Chúc bạn 8/3 thật nhiều hoa, nhiều quà, nhiều lời khen... và đặc biệt là nhiều người bao ăn" },
             { name: "Minh Cường", text: "Nhân ngày 8/3, chúc tất cả chị em 65BA luôn xinh đẹp, rạng rỡ và ai cũng là bông hoa đẹp nhất" },
-            { name: "Việt Hưng", text: "thôi thì chúc bạn thành công" }
+            { name: "Việt Hưng", text: "thôi thì chúc bạn thành công" },
+            { name: "0 phái là Toàn đâu", text: "Chúc các bạn nữ lớp mình thật nhiều niềm vui, luôn toá sáng, hạnh phúc, đạt nhiều thành công trong học tập và may mắn trong cuộc sống! ✨" },
+            { name: "Không phái lan đi tìm ngạn", text: "Chúc các bạn 8 tháng 3 zui zui zé zé ai cũng thành công" },
+            { name: "Ngan không đi tìm lan", text: "Tạo hóa ban cho mỗi cô gái một bản sắc riêng biệt. Thay vì phải cố gắng đeo những lớp mặt nạ để 'vừa vặn' với thế gian, chúc bạn ngày 8/3 luôn tự tin giữ trọn 'bản tâm' rực rỡ của mình. Hãy cứ là phiên bản chân thực và hạnh phúc nhất nhé!" },
+            { name: "0", text: "Thế giới có thể đầy rẫy những lớp mặt nạ, nhưng bạn thì chỉ cần một diện mạo duy nhất, Sự Tự Tin<br>8/3 chúc 'nàng mèo' của chúng ta luôn xinh đẹp, cá tính và không bao giờ đánh mất bản sắc riêng. Cứ 'cool' và là chính mình nhé!" },
+            { name: "0", text: "Chúc các bạn siêu siêu cute dễ thương và là em bé của gia đình với cua ny nha" },
+            { name: "ngại ngùng nhút nhát", text: "chúc các bạn ăn mau chóng lớn, học giỏi chơi hay" },
+            { name: "Vua lô đề", text: "chúc bạn đánh đâu trúng đó, may mắn như mưa rơi" }
         ];
 
         const container = document.getElementById('wishes-container');
 
         // Mảng màu sắc trang trí ngẫu nhiên cho góc thẻ
         const decoColors = ['bg-pink-100', 'bg-rose-100', 'bg-fuchsia-100', 'bg-purple-100', 'bg-indigo-100', 'bg-sky-100'];
+
+        // Mảng icon động vật dễ thương để làm avatar
+        const animalIcons = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🦄', '🐧', '🦉', '🐝', '🐢', '🦖', '🐳', '🦭', '🦥', '🦦'];
 
         wishesData.forEach((wish, index) => {
             // Xử lý ẩn danh
@@ -170,7 +223,8 @@
                 displayName = "Nam sinh giấu tên 🤫";
                 avatarChar = '👻';
             } else {
-                avatarChar = wish.name.charAt(0).toUpperCase();
+                // Lấy icon động vật thay vì dùng chữ cái đầu
+                avatarChar = animalIcons[index % animalIcons.length];
             }
 
             // Lấy màu ngẫu nhiên cho góc thẻ
