@@ -257,7 +257,7 @@
 
         // Vòng lặp từ 1 đến 22 để tạo thẻ div chứa ảnh
         for (let i = 1; i <= 22; i++) {
-            const imgPath = `girl_image/${i}.png`; // Đường dẫn ảnh theo yêu cầu: girl_image/1.png -> 22.png
+            const imgPath = `girl_image/${i}.webp`; // Đường dẫn ảnh theo yêu cầu: girl_image/1.webp -> 22.webp
 
             const div = document.createElement('div');
             // Đặt tỉ lệ 1652/1028 (~1.6) như yêu cầu bằng class aspect-ratio của Tailwind
@@ -316,7 +316,7 @@
             const imgSrc = imgEl.src;
             if (!imgSrc) return;
 
-            const fileName = imgSrc.split('/').pop().split('?')[0] || '8_3_image.png';
+            const fileName = imgSrc.split('/').pop().split('?')[0] || '8_3_image.webp';
 
             fetch(imgSrc)
                 .then(response => response.blob())
